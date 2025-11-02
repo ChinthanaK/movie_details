@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+form {
+  width: 100%;           /* form stretches fully */
+  text-align: left;      /* everything inside aligns to the left */
+}
+
+label {
+  font-weight: bold;
+  display: block;        /* forces label to occupy its own line */
+  text-align: left;
+  margin-bottom: 0.4rem;
+}
+
+input {
+  width: 100%;           /* takes full width of the form */
+  border-radius: 50px;
+  height: 25px;
+  border: 1px solid lightgray;
+  padding: 0.3rem 0.7rem;
+  box-sizing: border-box; /* ensures padding doesn’t exceed total width */
+}
+
+textarea {
+  width: 100%;           /* same full width */
+  border-radius: 7px;
+  height: 75px;
+  border: 1px solid lightgray;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+form button {
+   display: block;
+  margin: 1rem auto 0 auto;
+}

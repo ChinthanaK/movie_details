@@ -2,12 +2,13 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 import MoviesList from './components/MoviesList';
 import './App.css';
+import AddMoviesForm from './components/AddMoviesForm';
 
 function App() {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  
+
 
   const fetchMoviesHandler = useCallback( async () => {
     try{
@@ -33,9 +34,14 @@ function App() {
       fetchMoviesHandler();
     }, [fetchMoviesHandler]);
 
+  
 
   return (
     <React.Fragment>
+    <section>
+     <AddMoviesForm />
+
+    </section>
       <section>
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
         
