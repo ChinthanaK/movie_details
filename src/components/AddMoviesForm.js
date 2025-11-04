@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from "./AddMoviesForm.module.css"
 
-const AddMoviesForm = () => {
+const AddMoviesForm = (props) => {
     const formSubmitHandler = (event) =>{
         event.preventDefault();
         const enteredData = {
@@ -10,7 +10,8 @@ const AddMoviesForm = () => {
             releaseDate: event.target.releaseDate.value
 
         }
-        console.log(enteredData);
+       props.onAddMovie(enteredData);
+       event.target.reset(); 
     }
   return (
     <div className={classes.container}>

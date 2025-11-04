@@ -18,3 +18,20 @@
   margin: 0;
   font-size: 1rem;
 }
+
+.deleteBtn {
+  font: inherit;
+  cursor: pointer;
+  background: #00C853 ;
+  border: 1px solid #00C853 ;
+  color: black;
+  padding: 0.75rem 2rem;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.deleteBtn:focus {
+  outline: none;
+  background: #00C853 ;
+  border: 1px solid #00C853 ;
+}

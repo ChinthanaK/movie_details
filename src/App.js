@@ -14,13 +14,22 @@ function App() {
     try{
       setIsLoading(true);
       setError(null);
-    const response = await fetch("https://swapi.info/api/films");
+    const response = await fetch("https://react-http-1-5cef2-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json");
     console.log(response.ok)
      if(!response.ok){
       throw new Error("Something went wrong ....Retrying")
     }
     const data = await response.json();
-    setMovies(data);
+    const loadedMovies =[];
+      for(const key in data){
+        loadedMovies.push({
+          id:key,
+          title:data[key].title,
+          openingText:data[key].openingText,
+          releaseDate:data[key].releaseDate
+        })
+      }
+     setMovies(loadedMovies);
 
     }catch(error){
       setError(error.message);
@@ -34,12 +43,36 @@ function App() {
       fetchMoviesHandler();
     }, [fetchMoviesHandler]);
 
-  
+    async function addMovieHandler(movie) {
+      const response = await fetch("https://react-http-1-5cef2-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json", {
+        method:"POST",
+        body:JSON.stringify(movie),
+        headers:{
+          'Content-Type':'application/json'
+        }
+      })
+
+      const data = await response.json();
+
+      console.log(data);
+
+    }
+    async function deleteMovieHandler(id){
+      const response = await fetch("https://react-http-1-5cef2-default-rtdb.asia-southeast1.firebasedatabase.app/movies.json", {
+        method:"DELETE"
+      })
+
+      if (!response.ok) {
+          throw new Error("Failed to delete movie.");
+      }
+
+      setMovies((prevMovies) => prevMovies.filter((movie) => movie.id ===id));
+    }
 
   return (
     <React.Fragment>
     <section>
-     <AddMoviesForm />
+     <AddMoviesForm onAddMovie = {addMovieHandler}/>
 
     </section>
       <section>
@@ -49,7 +82,7 @@ function App() {
       <section>
         {isLoading && <p>Loading...</p>}
         {!isLoading && movies.length===0 && !error && <p>Found no movies</p>}
-        {!isLoading && movies.length > 0 &&<MoviesList movies={movies} />}
+        {!isLoading && movies.length > 0 &&<MoviesList movies={movies} onDelete={deleteMovieHandler}/>}
         {!isLoading && error && <p>{error}</p>}
       </section>
     </React.Fragment>
